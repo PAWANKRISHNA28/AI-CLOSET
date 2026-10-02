@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./ProfileSettings.css";
 
 function ProfileSettings() {
   const [activeSection, setActiveSection] = useState("Profile");

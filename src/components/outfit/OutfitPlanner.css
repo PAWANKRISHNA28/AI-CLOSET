@@ -1,0 +1,841 @@
+.outfit-planner-page {
+  width: 100%;
+  min-height: 100%;
+  padding: 6px 2px 35px;
+  color: #f5f5f5;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.outfit-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.outfit-eyebrow {
+  display: block;
+  margin-bottom: 6px;
+  color: #d6b77a;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.outfit-header h1 {
+  margin: 0;
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.outfit-header p {
+  margin: 8px 0 0;
+  color: #a1a1aa;
+  font-size: 12px;
+}
+
+.stylist-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 10px;
+  border: 1px solid rgba(125, 211, 168, 0.18);
+  border-radius: 9px;
+  background: rgba(125, 211, 168, 0.05);
+  color: #a5b9ae;
+  font-size: 10px;
+}
+
+.status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #7dd3a8;
+  box-shadow: 0 0 10px rgba(125, 211, 168, 0.6);
+}
+
+/* =========================================================
+   CONTEXT
+========================================================= */
+
+.stylist-context {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  margin-bottom: 14px;
+}
+
+.context-card {
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(12px);
+}
+
+.context-label {
+  display: block;
+  margin-bottom: 6px;
+  color: #71717a;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.context-card strong {
+  display: block;
+  color: #e4e4e7;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.context-card small {
+  display: block;
+  margin-top: 4px;
+  color: #66666f;
+  font-size: 9px;
+}
+
+/* =========================================================
+   MAIN GRID
+========================================================= */
+
+.stylist-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(250px, 0.75fr);
+  gap: 12px;
+  align-items: stretch;
+}
+
+/* =========================================================
+   MAIN OUTFIT CARD
+========================================================= */
+
+.outfit-main-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(214, 183, 122, 0.06),
+      transparent 40%
+    ),
+    rgba(255, 255, 255, 0.04);
+
+  backdrop-filter: blur(16px);
+}
+
+.outfit-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px 17px 8px;
+}
+
+.recommendation-label {
+  display: block;
+  margin-bottom: 6px;
+  color: #d6b77a;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.outfit-card-top h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.outfit-card-top p {
+  margin: 4px 0 0;
+  color: #77777f;
+  font-size: 10px;
+}
+
+.match-score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.match-score strong {
+  color: #d6b77a;
+  font-size: 23px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.match-score span {
+  color: #686870;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* =========================================================
+   OUTFIT VISUAL
+========================================================= */
+
+.outfit-visual {
+  position: relative;
+
+  min-height: 245px;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  align-items: stretch;
+
+  gap: 10px;
+
+  padding: 14px 16px;
+
+  overflow: hidden;
+}
+
+.style-glow {
+  position: absolute;
+
+  width: 240px;
+  height: 130px;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: rgba(214, 183, 122, 0.045);
+
+  filter: blur(40px);
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =========================================================
+   CLOTHING PIECES
+========================================================= */
+
+.clothing-piece {
+  position: relative;
+  z-index: 1;
+
+  min-width: 0;
+  min-height: 215px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  padding: 12px 8px;
+
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 13px;
+
+  background: rgba(8, 9, 12, 0.32);
+
+  text-align: center;
+
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.clothing-piece:hover {
+  border-color: rgba(214, 183, 122, 0.2);
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   CLOTHING IMAGE
+========================================================= */
+
+.piece-icon {
+  position: relative;
+
+  width: 105px;
+  height: 105px;
+
+  min-width: 105px;
+  min-height: 105px;
+
+  flex: 0 0 105px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(214, 183, 122, 0.1);
+
+  border-radius: 50%;
+
+  background: rgba(214, 183, 122, 0.025);
+
+  overflow: hidden;
+}
+
+/* Uploaded image */
+
+.piece-icon img {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  display: block;
+}
+
+/* Emoji */
+
+.piece-fallback {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 40px;
+  line-height: 1;
+}
+
+.piece-icon:not(.image-failed) .piece-fallback {
+  display: none;
+}
+
+.piece-icon.image-failed .piece-fallback {
+  display: flex;
+}
+
+/* =========================================================
+   CLOTHING DETAILS
+========================================================= */
+
+.piece-details {
+  width: 100%;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  margin-top: 0;
+}
+
+.piece-details > span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #66666f;
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+}
+
+.piece-details > strong {
+  display: block;
+
+  width: 100%;
+  max-width: 135px;
+
+  color: #e4e4e7;
+
+  font-size: 11px;
+  font-weight: 500;
+
+  line-height: 1.3;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.piece-details > small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #77777f;
+
+  font-size: 8px;
+}
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.outfit-actions {
+  display: flex;
+  gap: 7px;
+
+  padding: 0 16px 16px;
+}
+
+.primary-outfit-button,
+.secondary-outfit-button {
+  padding: 8px 12px;
+
+  border-radius: 8px;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.primary-outfit-button {
+  border: 1px solid rgba(214, 183, 122, 0.28);
+
+  background: rgba(214, 183, 122, 0.1);
+
+  color: #d6b77a;
+}
+
+.primary-outfit-button:hover {
+  border-color: rgba(214, 183, 122, 0.45);
+
+  background: rgba(214, 183, 122, 0.15);
+
+  transform: translateY(-1px);
+}
+
+.secondary-outfit-button {
+  border: 1px solid rgba(255, 255, 255, 0.07);
+
+  background: rgba(255, 255, 255, 0.03);
+
+  color: #a1a1aa;
+}
+
+.secondary-outfit-button:hover {
+  background: rgba(255, 255, 255, 0.055);
+
+  color: #f5f5f5;
+}
+
+/* =========================================================
+   AI REASON
+========================================================= */
+
+.ai-reason-card {
+  min-width: 0;
+
+  padding: 17px;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  backdrop-filter: blur(14px);
+
+  overflow: hidden;
+}
+
+.ai-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.ai-symbol {
+  width: 31px;
+  height: 31px;
+
+  flex: 0 0 31px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(214, 183, 122, 0.22);
+
+  border-radius: 9px;
+
+  background: rgba(214, 183, 122, 0.065);
+
+  color: #d6b77a;
+
+  font-size: 14px;
+}
+
+.ai-card-heading span {
+  color: #d6b77a;
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 0.15em;
+}
+
+.ai-card-heading h3 {
+  margin: 3px 0 0;
+
+  font-size: 15px;
+
+  font-weight: 500;
+}
+
+.ai-reason {
+  margin: 15px 0;
+
+  color: #a1a1aa;
+
+  font-size: 10px;
+
+  line-height: 1.65;
+}
+
+.reason-divider {
+  height: 1px;
+
+  margin-bottom: 13px;
+
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.reason-item {
+  display: flex;
+
+  gap: 9px;
+
+  margin-bottom: 13px;
+}
+
+.reason-item > span {
+  padding-top: 1px;
+
+  color: #d6b77a;
+
+  font-size: 8px;
+
+  font-weight: 700;
+}
+
+.reason-item strong {
+  display: block;
+
+  color: #e4e4e7;
+
+  font-size: 10px;
+
+  font-weight: 600;
+}
+
+.reason-item p {
+  margin: 3px 0 0;
+
+  color: #71717a;
+
+  font-size: 9px;
+
+  line-height: 1.45;
+}
+
+/* =========================================================
+   ALTERNATIVES
+========================================================= */
+
+.alternatives-section {
+  margin-top: 20px;
+}
+
+.section-heading {
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  margin-bottom: 10px;
+}
+
+.section-heading > div > span {
+  color: #71717a;
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+}
+
+.section-heading h2 {
+  margin: 4px 0 0;
+
+  font-size: 16px;
+
+  font-weight: 500;
+}
+
+.section-heading > small {
+  color: #66666f;
+
+  font-size: 9px;
+}
+
+.alternative-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 9px;
+}
+
+.alternative-card {
+  padding: 0;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.03);
+
+  color: #f5f5f5;
+
+  text-align: left;
+
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.alternative-card:hover,
+.alternative-card.selected {
+  border-color: rgba(214, 183, 122, 0.22);
+
+  background: rgba(214, 183, 122, 0.04);
+
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   ALTERNATIVE IMAGE PREVIEW
+========================================================= */
+
+.alternative-preview {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  height: 105px;
+
+  padding: 10px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  background: rgba(8, 9, 12, 0.25);
+
+  font-size: 20px;
+}
+
+.alternative-preview img {
+  width: 55px;
+  height: 75px;
+
+  object-fit: cover;
+
+  border-radius: 8px;
+
+  display: block;
+}
+
+.alternative-info {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 7px;
+
+  padding: 10px;
+}
+
+.alternative-info strong {
+  display: block;
+
+  font-size: 10px;
+
+  font-weight: 600;
+}
+
+.alternative-info small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #71717a;
+
+  font-size: 8px;
+}
+
+.alternative-match {
+  color: #d6b77a;
+
+  font-size: 10px;
+
+  font-weight: 600;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+  .outfit-visual {
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .clothing-piece {
+    min-height: 200px;
+  }
+
+  .piece-icon {
+    width: 90px;
+    height: 90px;
+
+    min-width: 90px;
+    min-height: 90px;
+
+    flex-basis: 90px;
+  }
+
+  .piece-fallback {
+    font-size: 34px;
+  }
+
+  .piece-details > strong {
+    max-width: 115px;
+    font-size: 10px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+  .stylist-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stylist-context {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .alternative-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+  .outfit-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .stylist-context {
+    grid-template-columns: 1fr;
+  }
+
+  .outfit-visual {
+    grid-template-columns: 1fr;
+
+    min-height: auto;
+
+    gap: 8px;
+  }
+
+  .clothing-piece {
+    min-height: 105px;
+
+    flex-direction: row;
+
+    justify-content: flex-start;
+
+    text-align: left;
+
+    padding: 10px 12px;
+  }
+
+  .piece-icon {
+    width: 70px;
+    height: 70px;
+
+    min-width: 70px;
+    min-height: 70px;
+
+    flex-basis: 70px;
+  }
+
+  .piece-fallback {
+    font-size: 30px;
+  }
+
+  .piece-details {
+    align-items: flex-start;
+  }
+
+  .piece-details > strong {
+    max-width: 200px;
+
+    text-align: left;
+  }
+
+  .piece-details > span,
+  .piece-details > small {
+    text-align: left;
+  }
+
+  .alternative-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .outfit-actions {
+    flex-direction: column;
+  }
+}

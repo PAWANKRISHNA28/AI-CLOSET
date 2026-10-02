@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../../lib/supabase";
 import type { ClothingItem } from "../layout/AppLayout";
+import "./AddClothes.css";
 
 interface AddClothesProps {
   onSave: (
@@ -96,9 +97,6 @@ function AddClothes({
       return;
     }
 
-    /*
-     * Only allow image files.
-     */
     if (!file.type.startsWith("image/")) {
       setError(
         "Please select a valid image file."
@@ -106,9 +104,6 @@ function AddClothes({
       return;
     }
 
-    /*
-     * Limit image size to 5 MB.
-     */
     if (file.size > 5 * 1024 * 1024) {
       setError(
         "Image must be smaller than 5 MB."
@@ -117,8 +112,7 @@ function AddClothes({
     }
 
     /*
-     * If another image was already uploaded
-     * for AI analysis, remove it.
+     * Remove previously uploaded image.
      */
     if (uploadedImagePath) {
       await supabase.storage
@@ -131,8 +125,7 @@ function AddClothes({
     setSelectedFile(file);
 
     /*
-     * Clear previously detected information
-     * when a new image is selected.
+     * Clear previous detected information.
      */
     setItemName("");
     setCategory("");
@@ -162,25 +155,240 @@ function AddClothes({
 
   /*
    * --------------------------------------------------
+   * CLOTHING CROP
+   *
+   * The original photo is used for AI analysis.
+   * A cropped version is created only when
+   * saving the clothing item.
+   * --------------------------------------------------
+   */
+
+  const createClothingCrop = async (
+    file: File,
+    clothingCategory: string
+  ): Promise<File> => {
+    /*
+     * Categories that should be cropped.
+     */
+    const normalizedCategory =
+      clothingCategory.trim().toLowerCase();
+
+    let cropStart = 0;
+    let cropEnd = 1;
+
+    /*
+     * TOPS
+     *
+     * Keep the upper/middle portion of
+     * the person's body.
+     */
+    if (
+      normalizedCategory === "tops" ||
+      normalizedCategory === "top"
+    ) {
+      cropStart = 0.10;
+      cropEnd = 0.62;
+    }
+
+    /*
+     * BOTTOMS
+     *
+     * Keep the middle/lower portion.
+     */
+    else if (
+      normalizedCategory === "bottoms" ||
+      normalizedCategory === "bottom"
+    ) {
+      cropStart = 0.38;
+      cropEnd = 0.90;
+    }
+
+    /*
+     * SHOES
+     *
+     * Keep the lower portion.
+     */
+    else if (
+      normalizedCategory === "shoes" ||
+      normalizedCategory === "shoe" ||
+      normalizedCategory === "footwear"
+    ) {
+      cropStart = 0.62;
+      cropEnd = 1;
+    }
+
+    /*
+     * For categories such as:
+     * Outerwear / Accessories
+     * keep the original image.
+     */
+    else {
+      return file;
+    }
+
+    return new Promise<File>(
+      (resolve, reject) => {
+        const image =
+          new Image();
+
+        const objectUrl =
+          URL.createObjectURL(file);
+
+        image.onload = () => {
+          try {
+            const canvas =
+              document.createElement(
+                "canvas"
+              );
+
+            const sourceWidth =
+              image.naturalWidth;
+
+            const sourceHeight =
+              image.naturalHeight;
+
+            /*
+             * Calculate vertical crop.
+             */
+            const sourceY =
+              Math.round(
+                sourceHeight *
+                  cropStart
+              );
+
+            const cropHeight =
+              Math.round(
+                sourceHeight *
+                  (cropEnd -
+                    cropStart)
+              );
+
+            /*
+             * Keep original width.
+             */
+            canvas.width =
+              sourceWidth;
+
+            canvas.height =
+              cropHeight;
+
+            const context =
+              canvas.getContext(
+                "2d"
+              );
+
+            if (!context) {
+              URL.revokeObjectURL(
+                objectUrl
+              );
+
+              reject(
+                new Error(
+                  "Unable to process the clothing image."
+                )
+              );
+
+              return;
+            }
+
+            /*
+             * Draw only the clothing region.
+             */
+            context.drawImage(
+              image,
+              0,
+              sourceY,
+              sourceWidth,
+              cropHeight,
+              0,
+              0,
+              sourceWidth,
+              cropHeight
+            );
+
+            /*
+             * Convert canvas back to a File.
+             */
+            canvas.toBlob(
+              (blob) => {
+                URL.revokeObjectURL(
+                  objectUrl
+                );
+
+                if (!blob) {
+                  reject(
+                    new Error(
+                      "Unable to create cropped image."
+                    )
+                  );
+
+                  return;
+                }
+
+                const extension =
+                  file.type ===
+                  "image/png"
+                    ? "png"
+                    : "jpg";
+
+                const croppedFile =
+                  new File(
+                    [blob],
+                    `clothing-${crypto.randomUUID()}.${extension}`,
+                    {
+                      type:
+                        file.type ===
+                        "image/png"
+                          ? "image/png"
+                          : "image/jpeg",
+                    }
+                  );
+
+                resolve(
+                  croppedFile
+                );
+              },
+              file.type ===
+                "image/png"
+                ? "image/png"
+                : "image/jpeg",
+              0.92
+            );
+          } catch (cropError) {
+            URL.revokeObjectURL(
+              objectUrl
+            );
+
+            reject(cropError);
+          }
+        };
+
+        image.onerror = () => {
+          URL.revokeObjectURL(
+            objectUrl
+          );
+
+          reject(
+            new Error(
+              "Unable to read the selected image."
+            )
+          );
+        };
+
+        image.src = objectUrl;
+      }
+    );
+  };
+
+  /*
+   * --------------------------------------------------
    * Upload image to Supabase Storage
    * --------------------------------------------------
    */
 
-  const uploadImage = async () => {
-    if (!selectedFile) {
-      throw new Error(
-        "Please select a clothing image."
-      );
-    }
-
-    /*
-     * If the image was already uploaded,
-     * reuse the existing path.
-     */
-    if (uploadedImagePath) {
-      return uploadedImagePath;
-    }
-
+  const uploadFileToStorage = async (
+    file: File
+  ) => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -192,9 +400,9 @@ function AddClothes({
     }
 
     const fileExtension =
-      selectedFile.name
-        .split(".")
-        .pop() || "jpg";
+      file.type === "image/png"
+        ? "png"
+        : "jpg";
 
     const fileName =
       `${crypto.randomUUID()}.${fileExtension}`;
@@ -202,17 +410,22 @@ function AddClothes({
     const filePath =
       `${user.id}/${fileName}`;
 
-    const { error: uploadError } =
+    const {
+      error: uploadError,
+    } =
       await supabase.storage
         .from("clothing-images")
         .upload(
           filePath,
-          selectedFile,
+          file,
           {
             cacheControl: "3600",
             upsert: false,
             contentType:
-              selectedFile.type,
+              file.type ===
+              "image/png"
+                ? "image/png"
+                : "image/jpeg",
           }
         );
 
@@ -220,7 +433,39 @@ function AddClothes({
       throw uploadError;
     }
 
-    setUploadedImagePath(filePath);
+    return filePath;
+  };
+
+  /*
+   * --------------------------------------------------
+   * Upload original image
+   *
+   * This image is used by AI analysis.
+   * --------------------------------------------------
+   */
+
+  const uploadImage = async () => {
+    if (!selectedFile) {
+      throw new Error(
+        "Please select a clothing image."
+      );
+    }
+
+    /*
+     * Reuse existing uploaded image.
+     */
+    if (uploadedImagePath) {
+      return uploadedImagePath;
+    }
+
+    const filePath =
+      await uploadFileToStorage(
+        selectedFile
+      );
+
+    setUploadedImagePath(
+      filePath
+    );
 
     return filePath;
   };
@@ -260,7 +505,8 @@ function AddClothes({
     };
 
     return (
-      categoryMap[normalized] || value
+      categoryMap[normalized] ||
+      value
     );
   };
 
@@ -337,8 +583,9 @@ function AddClothes({
 
     if (
       normalized === "monsoon"
-    )
+    ) {
       return "Monsoon";
+    }
 
     return "All season";
   };
@@ -405,154 +652,160 @@ function AddClothes({
    * --------------------------------------------------
    */
 
-  const handleAnalyzeWithAI = async () => {
-    setError("");
-    setSuccess("");
+  const handleAnalyzeWithAI =
+    async () => {
+      setError("");
+      setSuccess("");
 
-    if (!selectedFile) {
-      setError(
-        "Please select a clothing image first."
-      );
-      return;
-    }
+      if (!selectedFile) {
+        setError(
+          "Please select a clothing image first."
+        );
+        return;
+      }
 
-    try {
-      setAiLoading(true);
+      try {
+        setAiLoading(true);
 
-      /*
-       * Upload image first.
-       */
-      const imagePath =
-        await uploadImage();
+        /*
+         * Upload ORIGINAL image for AI.
+         */
+        const imagePath =
+          await uploadImage();
 
-      /*
-       * Call Supabase Edge Function.
-       */
-      const {
-        data,
-        error: functionError,
-      } = await supabase.functions.invoke(
-        "analyze-clothing",
-        {
-          body: {
-            imagePath,
-          },
+        /*
+         * Call Supabase Edge Function.
+         */
+        const {
+          data,
+          error: functionError,
+        } =
+          await supabase.functions.invoke(
+            "analyze-clothing",
+            {
+              body: {
+                imagePath,
+              },
+            }
+          );
+
+        if (functionError) {
+          console.error(
+            "AI function error:",
+            functionError
+          );
+
+          throw new Error(
+            functionError.message ||
+              "AI analysis failed."
+          );
         }
-      );
 
-      if (functionError) {
+        if (
+          !data ||
+          !data.success ||
+          !data.analysis
+        ) {
+          throw new Error(
+            data?.error ||
+              "AI could not analyze this image."
+          );
+        }
+
+        const analysis =
+          data.analysis as AIAnalysis;
+
+        /*
+         * Automatically fill form.
+         */
+        setItemName(
+          analysis.item?.trim() ||
+            ""
+        );
+
+        setCategory(
+          normalizeCategory(
+            analysis.category
+          )
+        );
+
+        setColor(
+          analysis.color?.trim() ||
+            ""
+        );
+
+        setStyle(
+          normalizeStyle(
+            analysis.style
+          )
+        );
+
+        setSeason(
+          normalizeSeason(
+            analysis.season
+          )
+        );
+
+        const detectedOccasions =
+          normalizeOccasions(
+            analysis.occasions
+          );
+
+        setOccasions(
+          detectedOccasions
+        );
+
+        if (
+          typeof analysis.confidence ===
+          "number"
+        ) {
+          setAiConfidence(
+            analysis.confidence
+          );
+        }
+
+        setAiAnalyzed(true);
+
+        setSuccess(
+          "AI identified your clothing item. Please review the details before saving."
+        );
+      } catch (analysisError) {
         console.error(
-          "AI function error:",
-          functionError
+          "AI analysis failed:",
+          analysisError
         );
 
-        throw new Error(
-          functionError.message ||
-            "AI analysis failed."
-        );
+        /*
+         * Remove original image if
+         * AI analysis fails.
+         */
+        if (uploadedImagePath) {
+          await supabase.storage
+            .from("clothing-images")
+            .remove([
+              uploadedImagePath,
+            ]);
+
+          setUploadedImagePath(
+            null
+          );
+        }
+
+        if (
+          analysisError instanceof Error
+        ) {
+          setError(
+            analysisError.message
+          );
+        } else {
+          setError(
+            "Unable to analyze the clothing image."
+          );
+        }
+      } finally {
+        setAiLoading(false);
       }
-
-      if (
-        !data ||
-        !data.success ||
-        !data.analysis
-      ) {
-        throw new Error(
-          data?.error ||
-            "AI could not analyze this image."
-        );
-      }
-
-      const analysis =
-        data.analysis as AIAnalysis;
-
-      /*
-       * Automatically fill the form.
-       */
-      setItemName(
-        analysis.item?.trim() || ""
-      );
-
-      setCategory(
-        normalizeCategory(
-          analysis.category
-        )
-      );
-
-      setColor(
-        analysis.color?.trim() || ""
-      );
-
-      setStyle(
-        normalizeStyle(
-          analysis.style
-        )
-      );
-
-      setSeason(
-        normalizeSeason(
-          analysis.season
-        )
-      );
-
-      const detectedOccasions =
-        normalizeOccasions(
-          analysis.occasions
-        );
-
-      setOccasions(
-        detectedOccasions
-      );
-
-      if (
-        typeof analysis.confidence ===
-        "number"
-      ) {
-        setAiConfidence(
-          analysis.confidence
-        );
-      }
-
-      setAiAnalyzed(true);
-
-      setSuccess(
-        "AI identified your clothing item. Please review the details before saving."
-      );
-    } catch (analysisError) {
-      console.error(
-        "AI analysis failed:",
-        analysisError
-      );
-
-      /*
-       * Remove the uploaded image if
-       * AI analysis fails.
-       */
-      if (uploadedImagePath) {
-        await supabase.storage
-          .from("clothing-images")
-          .remove([
-            uploadedImagePath,
-          ]);
-
-        setUploadedImagePath(null);
-      }
-
-      if (
-        analysisError instanceof Error
-      ) {
-        setError(
-          analysisError.message
-        );
-      } else {
-        setError(
-          "Unable to analyze the clothing image."
-        );
-      }
-    } finally {
-      setAiLoading(false);
-    }
-  };
+    };
 
   /*
    * --------------------------------------------------
@@ -610,11 +863,12 @@ function AddClothes({
       setLoading(true);
 
       /*
-       * Get current authenticated user.
+       * Get authenticated user.
        */
       const {
         data: { user },
-      } = await supabase.auth.getUser();
+      } =
+        await supabase.auth.getUser();
 
       if (!user) {
         setError(
@@ -624,51 +878,115 @@ function AddClothes({
       }
 
       /*
-       * Upload image if it hasn't already
-       * been uploaded by AI analysis.
+       * ------------------------------------------------
+       * CREATE CLOTHING-SPECIFIC IMAGE
+       * ------------------------------------------------
+       *
+       * AI analyzed the original image.
+       * Now we create a cropped version for
+       * the actual closet/dashboard.
        */
-      const filePath =
-        await uploadImage();
+      let finalImagePath =
+        uploadedImagePath;
+
+      let croppedFile: File;
+
+      try {
+        croppedFile =
+          await createClothingCrop(
+            selectedFile,
+            category
+          );
+      } catch (cropError) {
+        console.warn(
+          "Clothing crop failed. Using original image instead.",
+          cropError
+        );
+
+        croppedFile =
+          selectedFile;
+      }
 
       /*
-       * Save clothing information in database.
+       * If the crop produced a new file,
+       * upload it separately.
+       */
+      if (
+        croppedFile !== selectedFile
+      ) {
+        finalImagePath =
+          await uploadFileToStorage(
+            croppedFile
+          );
+
+        /*
+         * Remove the original AI-analysis
+         * image because the final closet
+         * image is now the cropped image.
+         */
+        if (uploadedImagePath) {
+          await supabase.storage
+            .from("clothing-images")
+            .remove([
+              uploadedImagePath,
+            ]);
+        }
+      }
+
+      /*
+       * If no original image existed,
+       * upload the selected file.
+       */
+      if (!finalImagePath) {
+        finalImagePath =
+          await uploadFileToStorage(
+            croppedFile
+          );
+      }
+
+      /*
+       * Save clothing information.
        */
       const {
         data,
         error: insertError,
-      } = await supabase
-        .from("clothing_items")
-        .insert({
-          user_id: user.id,
-          name: itemName.trim(),
-          category,
-          color: color.trim(),
-          style,
-          season,
-          occasions,
-          image_url: filePath,
-          favorite: false,
-        })
-        .select()
-        .single();
+      } =
+        await supabase
+          .from("clothing_items")
+          .insert({
+            user_id: user.id,
+            name: itemName.trim(),
+            category,
+            color: color.trim(),
+            style,
+            season,
+            occasions,
+            image_url:
+              finalImagePath,
+            favorite: false,
+          })
+          .select()
+          .single();
 
       if (insertError) {
         /*
-         * If database insertion fails,
-         * remove uploaded image.
+         * Remove final image if
+         * database insertion fails.
          */
-        await supabase.storage
-          .from("clothing-images")
-          .remove([filePath]);
-
-        setUploadedImagePath(null);
+        if (finalImagePath) {
+          await supabase.storage
+            .from("clothing-images")
+            .remove([
+              finalImagePath,
+            ]);
+        }
 
         throw insertError;
       }
 
       /*
-       * Convert database record to the
-       * format expected by AppLayout.
+       * Convert database record to
+       * AppLayout format.
        */
       const newItem: Omit<
         ClothingItem,
@@ -695,7 +1013,9 @@ function AddClothes({
         "Clothing item saved successfully!"
       );
 
-      setUploadedImagePath(null);
+      setUploadedImagePath(
+        null
+      );
     } catch (saveError) {
       console.error(
         "Failed to save clothing item:",
@@ -776,7 +1096,9 @@ function AddClothes({
               id="clothing-image"
               type="file"
               accept="image/*"
-              onChange={handleFileChange}
+              onChange={
+                handleFileChange
+              }
               hidden
             />
 
@@ -1132,7 +1454,6 @@ function AddClothes({
             loading || aiLoading
           }
         >
-
           {loading
             ? "Saving..."
             : "Save to Closet"}

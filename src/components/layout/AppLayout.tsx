@@ -460,7 +460,12 @@ function AppLayout({
   const renderPage = () => {
     switch (activePage) {
       case "Dashboard":
-        return <Dashboard />;
+  return (
+    <Dashboard
+      clothingItems={clothingItems}
+      onNavigate={handleNavigation}
+    />
+  );
 
       case "My Closet":
         return (
@@ -482,8 +487,9 @@ function AppLayout({
           />
         );
 
-      case "AI Stylist":
-        return <OutfitPlanner />;
+     case "AI Stylist":
+  return <OutfitPlanner clothingItems={clothingItems} />;
+  
 
       case "Add Clothes":
         return (

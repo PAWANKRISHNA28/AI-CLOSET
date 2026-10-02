@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./OutfitHistory.css";
 
 function OutfitHistory() {
   const [filter, setFilter] = useState("All");
@@ -17,115 +18,89 @@ function OutfitHistory() {
     {
       date: "Yesterday",
       day: "September 30, 2026",
-      name: "Classic Blue",
-      occasion: "College",
-      match: "91%",
-      weather: "27°C · Cloudy",
-      items: ["Blue Polo", "Dark Denim", "White Sneakers"],
-      favorite: false,
-    },
-    {
-      date: "Sep 28",
-      day: "September 28, 2026",
       name: "Relaxed Weekend",
       occasion: "Casual",
       match: "89%",
       weather: "29°C · Sunny",
       items: ["Black T-Shirt", "Beige Chinos", "White Sneakers"],
+      favorite: false,
+    },
+    {
+      date: "Sep 29",
+      day: "September 29, 2026",
+      name: "Classic Look",
+      occasion: "College",
+      match: "86%",
+      weather: "27°C · Cloudy",
+      items: ["Blue Polo", "Dark Denim", "White Sneakers"],
       favorite: true,
+    },
+    {
+      date: "Sep 27",
+      day: "September 27, 2026",
+      name: "Evening Casual",
+      occasion: "Party",
+      match: "91%",
+      weather: "26°C · Clear",
+      items: ["Black Shirt", "Dark Denim", "Casual Shoes"],
+      favorite: false,
     },
     {
       date: "Sep 25",
       day: "September 25, 2026",
-      name: "Clean & Simple",
-      occasion: "Everyday",
-      match: "87%",
-      weather: "28°C · Sunny",
-      items: ["Oxford Shirt", "Beige Chinos", "White Sneakers"],
-      favorite: false,
-    },
-    {
-      date: "Sep 22",
-      day: "September 22, 2026",
-      name: "Smart Evening",
-      occasion: "Party",
-      match: "92%",
-      weather: "26°C · Clear",
-      items: ["Black T-Shirt", "Dark Denim", "Casual Jacket"],
-      favorite: true,
-    },
-    {
-      date: "Sep 19",
-      day: "September 19, 2026",
-      name: "Weekend Casual",
+      name: "Travel Ready",
       occasion: "Travel",
-      match: "85%",
-      weather: "30°C · Sunny",
-      items: ["Blue Polo", "Beige Chinos", "White Sneakers"],
+      match: "88%",
+      weather: "29°C · Sunny",
+      items: ["White T-Shirt", "Blue Jeans", "White Sneakers"],
       favorite: false,
     },
   ];
 
-  const filters = ["All", "Everyday", "College", "Casual", "Party", "Travel"];
+  const filters = [
+    "All",
+    "Everyday",
+    "College",
+    "Casual",
+    "Party",
+    "Travel",
+  ];
 
   const filteredOutfits =
     filter === "All"
       ? outfits
-      : outfits.filter((outfit) => outfit.occasion === filter);
+      : outfits.filter(
+          (outfit) => outfit.occasion === filter
+        );
 
   return (
-    <div className="outfit-history-page">
-      {/* Header */}
+    <section className="history-page">
+      {/* HEADER */}
       <header className="history-header">
         <div>
-          <p className="dashboard-eyebrow">OUTFIT HISTORY</p>
+          <span className="history-eyebrow">
+            YOUR STYLE JOURNEY
+          </span>
 
-          <h1>Your style journey.</h1>
+          <h1>Outfit History</h1>
 
           <p>
-            Keep track of what you've worn and discover the outfits
-            you enjoy the most.
+            A record of the looks you've created and worn.
           </p>
         </div>
 
         <div className="history-summary">
-          <strong>18</strong>
-          <span>OUTFITS WORN</span>
+          <span>LOOKS CREATED</span>
+          <strong>{outfits.length}</strong>
         </div>
       </header>
 
-      {/* Stats */}
-      <section className="history-stats">
-        <div className="history-stat-card">
-          <span>THIS MONTH</span>
-          <strong>12</strong>
-          <p>outfits worn</p>
-        </div>
-
-        <div className="history-stat-card">
-          <span>AVERAGE MATCH</span>
-          <strong>89%</strong>
-          <p>AI recommendation score</p>
-        </div>
-
-        <div className="history-stat-card">
-          <span>MOST WORN</span>
-          <strong>Oxford Shirt</strong>
-          <p>7 times</p>
-        </div>
-
-        <div className="history-stat-card">
-          <span>FAVORITES</span>
-          <strong>6</strong>
-          <p>saved outfits</p>
-        </div>
-      </section>
-
-      {/* Filters */}
-      <section className="history-toolbar">
+      {/* FILTER BAR */}
+      <div className="history-toolbar">
         <div className="history-filters">
           {filters.map((item) => (
             <button
+              type="button"
               key={item}
               className={filter === item ? "active" : ""}
               onClick={() => setFilter(item)}
@@ -135,29 +110,43 @@ function OutfitHistory() {
           ))}
         </div>
 
-        <button className="history-sort">
-          ↕ Sort by date
-        </button>
-      </section>
+        <span className="history-count">
+          {filteredOutfits.length}{" "}
+          {filteredOutfits.length === 1
+            ? "look"
+            : "looks"}
+        </span>
+      </div>
 
-      {/* Outfit list */}
-      <section className="history-list">
-        {filteredOutfits.map((outfit) => (
-          <article className="history-card" key={outfit.day}>
-            {/* Date */}
+      {/* HISTORY */}
+      <div className="history-list">
+        {filteredOutfits.map((outfit, index) => (
+          <article
+            className="history-card"
+            key={`${outfit.day}-${outfit.name}`}
+          >
+            {/* DATE */}
             <div className="history-date">
-              <strong>{outfit.date}</strong>
-              <span>{outfit.day}</span>
+              <span>{outfit.date}</span>
+              <small>{outfit.day}</small>
             </div>
 
-            {/* Outfit visual */}
-            <div className="history-visual">
-              <div>👔</div>
-              <div>👖</div>
-              <div>👟</div>
+            {/* OUTFIT PREVIEW */}
+            <div className="history-preview">
+              <div className="history-piece">
+                <span>👕</span>
+              </div>
+
+              <div className="history-piece">
+                <span>👖</span>
+              </div>
+
+              <div className="history-piece">
+                <span>👟</span>
+              </div>
             </div>
 
-            {/* Details */}
+            {/* DETAILS */}
             <div className="history-details">
               <div className="history-title-row">
                 <div>
@@ -168,38 +157,71 @@ function OutfitHistory() {
                   <h2>{outfit.name}</h2>
                 </div>
 
-                <button className="favorite-button">
-                  {outfit.favorite ? "♥" : "♡"}
-                </button>
+                {outfit.favorite && (
+                  <span className="history-favorite">
+                    ♥
+                  </span>
+                )}
               </div>
 
-              <p className="history-items">
-                {outfit.items.join(" · ")}
-              </p>
+              <div className="history-items">
+                {outfit.items.map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
+              </div>
 
               <div className="history-meta">
-                <span>☀ {outfit.weather}</span>
-                <span>✦ {outfit.match} AI match</span>
+                <span>☁ {outfit.weather}</span>
+                <span className="history-match">
+                  {outfit.match} match
+                </span>
               </div>
             </div>
 
-            {/* Action */}
-            <button className="view-outfit-button">
-              View outfit
+            {/* ACTION */}
+            <button
+              type="button"
+              className="history-view-button"
+              onClick={() => {
+                console.log(
+                  "Viewing outfit:",
+                  outfit.name
+                );
+              }}
+            >
+              View
               <span>→</span>
             </button>
+
+            {index === 0 && (
+              <span className="latest-badge">
+                LATEST
+              </span>
+            )}
           </article>
         ))}
-      </section>
+      </div>
 
+      {/* EMPTY */}
       {filteredOutfits.length === 0 && (
-        <div className="empty-history">
+        <div className="history-empty">
           <div>✦</div>
-          <h2>No outfits found</h2>
-          <p>Try selecting another category.</p>
+
+          <h2>No outfits here yet</h2>
+
+          <p>
+            Your saved outfit history will appear here.
+          </p>
         </div>
       )}
-    </div>
+
+      {/* FOOTER NOTE */}
+      <div className="history-footer">
+        <span>✦</span>
+        Your outfit history helps your stylist understand
+        your preferences.
+      </div>
+    </section>
   );
 }
 

@@ -6467,3 +6467,1244 @@
     min-height: 260px;
   }
 }
+
+/* =========================================================
+   AI CLOSET — FINAL APP SHELL POLISH
+   Safe override layer
+   ========================================================= */
+
+.app-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at 12% 10%,
+      rgba(214, 183, 122, 0.055),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 85%,
+      rgba(214, 183, 122, 0.035),
+      transparent 30%
+    ),
+    #08090c;
+  color: #f5f5f5;
+}
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.app-sidebar {
+  width: 258px;
+  padding: 22px 14px;
+  background:
+    linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.065),
+      rgba(255, 255, 255, 0.025)
+    );
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  border-radius: 24px;
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.045);
+}
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.app-logo {
+  padding: 3px 9px 24px;
+}
+
+.app-logo-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background:
+    radial-gradient(
+      circle at 35% 25%,
+      rgba(214, 183, 122, 0.3),
+      rgba(214, 183, 122, 0.08)
+    );
+  border: 1px solid rgba(214, 183, 122, 0.2);
+  color: #d6b77a;
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.app-logo strong {
+  color: #f5f5f5;
+  font-size: 15px;
+  letter-spacing: -0.3px;
+}
+
+.app-logo span {
+  color: #71717a;
+}
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+   ========================================================= */
+
+.sidebar-label {
+  color: #52525b;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+}
+
+.app-navigation {
+  gap: 5px;
+}
+
+.app-navigation button {
+  position: relative;
+  min-height: 43px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  color: #a1a1aa;
+  font-size: 12px;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.app-navigation button:hover {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(255, 255, 255, 0.06);
+  color: #f5f5f5;
+  transform: translateX(2px);
+}
+
+.app-navigation button.active {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(214, 183, 122, 0.12),
+      rgba(255, 255, 255, 0.035)
+    );
+  border-color: rgba(214, 183, 122, 0.18);
+  color: #f5f5f5;
+}
+
+.app-navigation button.active::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 9px;
+  bottom: 9px;
+  width: 2px;
+  border-radius: 999px;
+  background: #d6b77a;
+}
+
+.nav-icon {
+  color: #71717a;
+}
+
+.app-navigation button:hover .nav-icon,
+.app-navigation button.active .nav-icon {
+  color: #d6b77a;
+}
+
+.ai-nav-badge {
+  background: rgba(214, 183, 122, 0.1);
+  border: 1px solid rgba(214, 183, 122, 0.16);
+  color: #d6b77a;
+}
+
+/* =========================================================
+   AI STYLIST CARD
+   ========================================================= */
+
+.sidebar-ai-tip {
+  padding: 18px;
+  border: 1px solid rgba(214, 183, 122, 0.13);
+  border-radius: 18px;
+  background:
+    radial-gradient(
+      circle at 80% 0%,
+      rgba(214, 183, 122, 0.08),
+      transparent 55%
+    ),
+    rgba(255, 255, 255, 0.028);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.sidebar-ai-icon {
+  width: 34px;
+  height: 34px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  background: rgba(214, 183, 122, 0.1);
+  border: 1px solid rgba(214, 183, 122, 0.15);
+  color: #d6b77a;
+}
+
+.sidebar-ai-tip > span {
+  color: #d6b77a;
+}
+
+.sidebar-ai-tip h3 {
+  color: #f5f5f5;
+}
+
+.sidebar-ai-tip p {
+  color: #71717a;
+}
+
+.sidebar-ai-tip button {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.sidebar-ai-tip button:hover {
+  background: rgba(214, 183, 122, 0.09);
+  border-color: rgba(214, 183, 122, 0.18);
+}
+
+/* =========================================================
+   USER AREA
+   ========================================================= */
+
+.sidebar-user-area {
+  margin-top: 12px;
+}
+
+.sidebar-user {
+  border-top-color: rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  transition: background 180ms ease;
+}
+
+.sidebar-user:hover {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.sidebar-avatar,
+.topbar-avatar {
+  border: 1px solid rgba(214, 183, 122, 0.25);
+  background:
+    radial-gradient(
+      circle at 30% 20%,
+      rgba(214, 183, 122, 0.2),
+      transparent 60%
+    ),
+    rgba(255, 255, 255, 0.045);
+  color: #d6b77a;
+}
+
+.sidebar-user strong {
+  color: #e4e4e7;
+}
+
+.sidebar-user span {
+  color: #71717a;
+}
+
+.user-arrow {
+  color: #52525b !important;
+}
+
+.sidebar-logout {
+  border-radius: 10px;
+  color: #71717a;
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.sidebar-logout:hover {
+  background: rgba(255, 255, 255, 0.035);
+  color: #f87171;
+}
+
+/* =========================================================
+   MAIN AREA
+   ========================================================= */
+
+.app-main {
+  background: transparent;
+}
+
+.app-topbar {
+  height: 65px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+  background: rgba(8, 9, 12, 0.78);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.breadcrumb {
+  color: #52525b;
+}
+
+.breadcrumb strong {
+  color: #d4d4d8;
+}
+
+.topbar-ai {
+  border: 1px solid rgba(214, 183, 122, 0.18);
+  border-radius: 10px;
+  background: rgba(214, 183, 122, 0.055);
+  color: #d6b77a;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.topbar-ai:hover {
+  background: rgba(214, 183, 122, 0.1);
+  border-color: rgba(214, 183, 122, 0.3);
+}
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+
+.mobile-menu-button {
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #d4d4d8;
+}
+
+.mobile-menu-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-overlay {
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+/* =========================================================
+   PAGE CONTENT
+   ========================================================= */
+
+.app-page-content {
+  background: transparent;
+}
+
+/* =========================================================
+   RESPONSIVE SIDEBAR
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .app-sidebar {
+    width: 270px;
+    border-radius: 22px;
+  }
+
+  .app-topbar {
+    height: 62px;
+  }
+}
+
+@media (max-width: 500px) {
+  .app-sidebar {
+    inset: 10px auto 10px 10px;
+    width: calc(100vw - 20px);
+    max-width: 300px;
+  }
+
+  .app-topbar {
+    padding: 0 14px;
+  }
+}
+
+/* =========================================================
+   AI STYLIST — DARK THEME COLOR OVERRIDE
+   VISUAL ONLY — DO NOT CHANGE LAYOUT
+   ========================================================= */
+
+.outfit-planner-page {
+  background: #08090c;
+  color: #f5f5f5;
+}
+
+/* Header */
+
+.outfit-planner-header h1 {
+  color: #f5f5f5;
+}
+
+.outfit-planner-header > div:first-child > p:last-child {
+  color: #a1a1aa;
+}
+
+.stylist-status {
+  border-color: rgba(214, 183, 122, 0.22);
+  background: rgba(214, 183, 122, 0.035);
+  color: #d6b77a;
+}
+
+/* Weather */
+
+.planner-weather {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.055),
+      rgba(255, 255, 255, 0.025)
+    );
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    0 18px 45px rgba(0, 0, 0, 0.18);
+}
+
+.planner-weather-icon {
+  background: rgba(214, 183, 122, 0.07);
+  color: #d6b77a;
+}
+
+.weather-main strong {
+  color: #f5f5f5;
+}
+
+.weather-main p {
+  color: #a1a1aa;
+}
+
+.weather-details span {
+  color: #71717a;
+}
+
+.weather-details strong {
+  color: #e4e4e7;
+}
+
+/* Main layout cards */
+
+.recommended-outfit,
+.ai-reasoning {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.025)
+    );
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+/* Section headings */
+
+.planner-section-heading h2,
+.alternative-heading h2 {
+  color: #f5f5f5;
+}
+
+.planner-section-heading > span,
+.alternative-heading > span {
+  color: #71717a;
+}
+
+/* Match score */
+
+.match-score span {
+  color: #71717a;
+}
+
+.match-score strong {
+  color: #d6b77a;
+}
+
+.match-bar {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.match-bar div {
+  background: #d6b77a;
+}
+
+/* Clothing cards */
+
+.planner-clothing-card {
+  background: rgba(255, 255, 255, 0.028);
+  border-color: rgba(255, 255, 255, 0.075);
+}
+
+.planner-clothing-card:hover {
+  border-color: rgba(214, 183, 122, 0.18);
+}
+
+.planner-clothing-image {
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      rgba(214, 183, 122, 0.055),
+      transparent 65%
+    ),
+    rgba(255, 255, 255, 0.035);
+}
+
+.planner-clothing-card span {
+  color: #71717a;
+}
+
+.planner-clothing-card h3 {
+  color: #e4e4e7;
+}
+
+.planner-clothing-card p {
+  color: #71717a;
+}
+
+/* Action buttons */
+
+.wear-today-button {
+  border-color: rgba(214, 183, 122, 0.22);
+  background: rgba(214, 183, 122, 0.075);
+  color: #d6b77a;
+  box-shadow: none;
+}
+
+.wear-today-button:hover {
+  background: rgba(214, 183, 122, 0.11);
+}
+
+.save-outfit-button {
+  border-color: rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.035);
+  color: #d4d4d8;
+}
+
+.save-outfit-button:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Right-side weather/reasoning */
+
+.outfit-info {
+  background: transparent;
+}
+
+.weather-box {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.weather-icon {
+  background: rgba(214, 183, 122, 0.07);
+  color: #d6b77a;
+}
+
+.weather-box span {
+  color: #71717a;
+}
+
+.weather-box strong {
+  color: #e4e4e7;
+}
+
+.reason-box {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+.reason-title {
+  color: #e4e4e7;
+}
+
+.reason-title span {
+  color: #d6b77a;
+}
+
+.reason-box li {
+  color: #a1a1aa;
+}
+
+.reason-box li::before {
+  background: #d6b77a;
+}
+
+.wear-button {
+  border: 1px solid rgba(214, 183, 122, 0.2);
+  background: rgba(214, 183, 122, 0.075);
+  color: #d6b77a;
+}
+
+.wear-button:hover {
+  background: rgba(214, 183, 122, 0.11);
+}
+
+/* AI reasoning */
+
+.ai-reasoning-icon {
+  background: rgba(214, 183, 122, 0.07);
+  color: #d6b77a;
+}
+
+.ai-reasoning-header span {
+  color: #71717a;
+}
+
+.ai-reasoning-header h3 {
+  color: #f5f5f5;
+}
+
+.ai-reasoning-main {
+  color: #a1a1aa;
+}
+
+.reason-list > div > span {
+  color: #d6b77a;
+}
+
+.reason-list p {
+  color: #a1a1aa;
+}
+
+.reason-list strong {
+  color: #f5f5f5;
+}
+
+/* Alternative outfits */
+
+.alternative-card {
+  background: rgba(255, 255, 255, 0.028);
+  border-color: rgba(255, 255, 255, 0.075);
+}
+
+.alternative-card:hover,
+.alternative-card.selected {
+  border-color: rgba(214, 183, 122, 0.22);
+}
+
+.alternative-visual {
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      rgba(214, 183, 122, 0.05),
+      transparent 65%
+    ),
+    rgba(255, 255, 255, 0.035);
+}
+
+.alternative-info h3 {
+  color: #e4e4e7;
+}
+
+.alternative-info p {
+  color: #71717a;
+}
+
+.alternative-info strong {
+  color: #d6b77a;
+}
+
+/* =========================================================
+   ADD CLOTHES — DARK THEME COLOR OVERRIDE
+   VISUAL ONLY — DO NOT CHANGE LAYOUT
+   ========================================================= */
+
+.add-clothes-page {
+  background: #08090c;
+  color: #f5f5f5;
+}
+
+/* Page heading */
+
+.add-clothes-page .page-heading h1,
+.add-clothes-page .page-heading h2 {
+  color: #f5f5f5;
+}
+
+.add-clothes-page .page-heading p {
+  color: #71717a;
+}
+
+/* Main cards */
+
+.add-clothes-card,
+.clothing-upload,
+.add-form,
+.ai-detection-box {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.025)
+    );
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    0 18px 50px rgba(0, 0, 0, 0.18);
+}
+
+/* Upload area */
+
+.clothing-upload {
+  color: #a1a1aa;
+}
+
+.clothing-upload:hover {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(214, 183, 122, 0.18);
+}
+
+.clothing-upload h3,
+.clothing-upload strong {
+  color: #e4e4e7;
+}
+
+.clothing-upload p,
+.clothing-upload span {
+  color: #71717a;
+}
+
+/* Upload icon */
+
+.upload-icon,
+.clothing-upload-icon {
+  background: rgba(214, 183, 122, 0.07);
+  color: #d6b77a;
+  border-color: rgba(214, 183, 122, 0.14);
+}
+
+/* Form labels */
+
+.add-form label,
+.add-clothes-card label {
+  color: #a1a1aa;
+}
+
+/* Inputs */
+
+.add-form input,
+.add-form select,
+.add-form textarea,
+.add-clothes-card input,
+.add-clothes-card select,
+.add-clothes-card textarea {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #f5f5f5;
+}
+
+.add-form input::placeholder,
+.add-form textarea::placeholder,
+.add-clothes-card input::placeholder,
+.add-clothes-card textarea::placeholder {
+  color: #52525b;
+}
+
+.add-form input:hover,
+.add-form select:hover,
+.add-form textarea:hover,
+.add-clothes-card input:hover,
+.add-clothes-card select:hover,
+.add-clothes-card textarea:hover {
+  border-color: rgba(255, 255, 255, 0.13);
+}
+
+.add-form input:focus,
+.add-form select:focus,
+.add-form textarea:focus,
+.add-clothes-card input:focus,
+.add-clothes-card select:focus,
+.add-clothes-card textarea:focus {
+  border-color: rgba(214, 183, 122, 0.35);
+  box-shadow: 0 0 0 3px rgba(214, 183, 122, 0.06);
+  outline: none;
+}
+
+/* Select options */
+
+.add-form option,
+.add-clothes-card option {
+  background: #111216;
+  color: #f5f5f5;
+}
+
+/* AI detection */
+
+.ai-detection-box {
+  background:
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(214, 183, 122, 0.055),
+      transparent 45%
+    ),
+    rgba(255, 255, 255, 0.025);
+}
+
+.ai-detection-box h3,
+.ai-detection-box strong {
+  color: #e4e4e7;
+}
+
+.ai-detection-box p,
+.ai-detection-box span {
+  color: #71717a;
+}
+
+.ai-detection-box .ai-icon {
+  background: rgba(214, 183, 122, 0.07);
+  color: #d6b77a;
+}
+
+/* Occasion / selection controls */
+
+.add-form button,
+.add-clothes-card button {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+  color: #d4d4d8;
+}
+
+.add-form button:hover,
+.add-clothes-card button:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Selected controls */
+
+.add-form button.active,
+.add-form button.selected,
+.add-clothes-card button.active,
+.add-clothes-card button.selected {
+  background: rgba(214, 183, 122, 0.075);
+  border-color: rgba(214, 183, 122, 0.22);
+  color: #d6b77a;
+}
+
+/* Save / primary action */
+
+.add-form button[type="submit"],
+.add-clothes-card button[type="submit"],
+.add-clothes-primary,
+.save-clothing-button {
+  background: rgba(214, 183, 122, 0.09);
+  border-color: rgba(214, 183, 122, 0.22);
+  color: #d6b77a;
+}
+
+.add-form button[type="submit"]:hover,
+.add-clothes-card button[type="submit"]:hover,
+.add-clothes-primary:hover,
+.save-clothing-button:hover {
+  background: rgba(214, 183, 122, 0.13);
+  border-color: rgba(214, 183, 122, 0.3);
+}
+
+/* Cancel */
+
+.add-form button[type="button"],
+.cancel-button {
+  color: #a1a1aa;
+}
+
+/* Error / validation */
+
+.add-clothes-page .error,
+.add-clothes-page .form-error {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.05);
+  border-color: rgba(248, 113, 113, 0.12);
+}
+
+/* Success */
+
+.add-clothes-page .success {
+  color: #7dd3a8;
+  background: rgba(125, 211, 168, 0.05);
+  border-color: rgba(125, 211, 168, 0.12);
+}
+
+/* =========================================================
+   FAVORITES — DARK THEME COLOR OVERRIDE
+   VISUAL ONLY — DO NOT CHANGE LAYOUT
+   ========================================================= */
+
+.favorites-page {
+  background: #08090c;
+  color: #f5f5f5;
+}
+
+/* Header */
+
+.favorites-page h1,
+.favorites-page h2,
+.favorites-page h3 {
+  color: #f5f5f5;
+}
+
+.favorites-page p {
+  color: #71717a;
+}
+
+/* Tabs */
+
+.favorites-tabs {
+  border-bottom-color: rgba(255, 255, 255, 0.07);
+}
+
+.favorites-tabs button {
+  background: transparent;
+  border-color: transparent;
+  color: #71717a;
+}
+
+.favorites-tabs button:hover {
+  color: #d4d4d8;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.favorites-tabs button.active {
+  background: rgba(214, 183, 122, 0.055);
+  border-color: rgba(214, 183, 122, 0.16);
+  color: #d6b77a;
+}
+
+/* Search */
+
+.favorites-search,
+.favorites-page input {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #f5f5f5;
+}
+
+.favorites-search::placeholder,
+.favorites-page input::placeholder {
+  color: #52525b;
+}
+
+.favorites-search:focus,
+.favorites-page input:focus {
+  border-color: rgba(214, 183, 122, 0.3);
+  box-shadow: 0 0 0 3px rgba(214, 183, 122, 0.05);
+  outline: none;
+}
+
+/* Result count */
+
+.favorites-count {
+  color: #71717a;
+}
+
+/* Clothing / outfit cards */
+
+.favorite-card,
+.favorite-item,
+.favorite-outfit-card {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.025)
+    );
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    0 18px 45px rgba(0, 0, 0, 0.16);
+}
+
+.favorite-card:hover,
+.favorite-item:hover,
+.favorite-outfit-card:hover {
+  border-color: rgba(214, 183, 122, 0.16);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.03)
+    );
+}
+
+/* Images / visual areas */
+
+.favorite-card-image,
+.favorite-image,
+.favorite-outfit-image {
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(214, 183, 122, 0.045),
+      transparent 65%
+    ),
+    rgba(255, 255, 255, 0.035);
+}
+
+/* Card text */
+
+.favorite-card h3,
+.favorite-item h3,
+.favorite-outfit-card h3 {
+  color: #e4e4e7;
+}
+
+.favorite-card span,
+.favorite-item span,
+.favorite-outfit-card span {
+  color: #71717a;
+}
+
+/* Favorite icon / heart */
+
+.favorite-icon,
+.favorite-heart {
+  background: rgba(214, 183, 122, 0.06);
+  border-color: rgba(214, 183, 122, 0.14);
+  color: #d6b77a;
+}
+
+/* Remove button */
+
+.remove-favorite,
+.favorite-remove {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #71717a;
+}
+
+.remove-favorite:hover,
+.favorite-remove:hover {
+  background: rgba(248, 113, 113, 0.06);
+  border-color: rgba(248, 113, 113, 0.15);
+  color: #f87171;
+}
+
+/* AI tip */
+
+.favorites-ai-tip,
+.ai-favorites-tip {
+  background:
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(214, 183, 122, 0.055),
+      transparent 50%
+    ),
+    rgba(255, 255, 255, 0.025);
+  border-color: rgba(214, 183, 122, 0.11);
+}
+
+.favorites-ai-tip h3,
+.ai-favorites-tip h3 {
+  color: #e4e4e7;
+}
+
+.favorites-ai-tip strong,
+.ai-favorites-tip strong {
+  color: #d6b77a;
+}
+
+.favorites-ai-tip p,
+.ai-favorites-tip p {
+  color: #71717a;
+}
+
+/* Empty state */
+
+.favorites-empty,
+.empty-favorites {
+  background: rgba(255, 255, 255, 0.025);
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+.favorites-empty h3,
+.empty-favorites h3 {
+  color: #e4e4e7;
+}
+
+.favorites-empty p,
+.empty-favorites p {
+  color: #71717a;
+}
+
+/* =========================================================
+   SETTINGS — DARK THEME COLOR OVERRIDE
+   VISUAL ONLY — DO NOT CHANGE LAYOUT
+   ========================================================= */
+
+.settings-page {
+  background: #08090c;
+  color: #f5f5f5;
+}
+
+/* Page heading */
+
+.settings-page h1,
+.settings-page h2,
+.settings-page h3 {
+  color: #f5f5f5;
+}
+
+.settings-page p {
+  color: #71717a;
+}
+
+/* Settings sections/cards */
+
+.settings-card,
+.settings-section,
+.profile-card,
+.preference-card {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.025)
+    );
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    0 18px 50px rgba(0, 0, 0, 0.18);
+}
+
+/* Labels */
+
+.settings-page label {
+  color: #a1a1aa;
+}
+
+/* Inputs */
+
+.settings-page input,
+.settings-page select,
+.settings-page textarea {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #f5f5f5;
+}
+
+.settings-page input::placeholder,
+.settings-page textarea::placeholder {
+  color: #52525b;
+}
+
+.settings-page input:hover,
+.settings-page select:hover,
+.settings-page textarea:hover {
+  border-color: rgba(255, 255, 255, 0.13);
+}
+
+.settings-page input:focus,
+.settings-page select:focus,
+.settings-page textarea:focus {
+  border-color: rgba(214, 183, 122, 0.3);
+  box-shadow: 0 0 0 3px rgba(214, 183, 122, 0.05);
+  outline: none;
+}
+
+/* Profile avatar */
+
+.settings-avatar,
+.profile-avatar {
+  background:
+    radial-gradient(
+      circle at 30% 20%,
+      rgba(214, 183, 122, 0.18),
+      transparent 60%
+    ),
+    rgba(255, 255, 255, 0.045);
+  border-color: rgba(214, 183, 122, 0.22);
+  color: #d6b77a;
+}
+
+/* Section titles */
+
+.settings-section-title,
+.settings-card h3,
+.preference-card h3 {
+  color: #e4e4e7;
+}
+
+/* Secondary text */
+
+.settings-description,
+.settings-card p,
+.preference-card p {
+  color: #71717a;
+}
+
+/* Toggle controls */
+
+.settings-page input[type="checkbox"] {
+  accent-color: #d6b77a;
+}
+
+/* Buttons */
+
+.settings-page button {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+  color: #d4d4d8;
+}
+
+.settings-page button:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Primary save button */
+
+.settings-page button[type="submit"],
+.settings-save-button,
+.save-settings-button {
+  background: rgba(214, 183, 122, 0.08);
+  border-color: rgba(214, 183, 122, 0.22);
+  color: #d6b77a;
+}
+
+.settings-page button[type="submit"]:hover,
+.settings-save-button:hover,
+.save-settings-button:hover {
+  background: rgba(214, 183, 122, 0.12);
+  border-color: rgba(214, 183, 122, 0.3);
+}
+
+/* Active settings option */
+
+.settings-option.active,
+.settings-option.selected,
+.preference-option.active,
+.preference-option.selected {
+  background: rgba(214, 183, 122, 0.055);
+  border-color: rgba(214, 183, 122, 0.18);
+  color: #d6b77a;
+}
+
+/* Dividers */
+
+.settings-page hr,
+.settings-divider {
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+/* Success */
+
+.settings-page .success,
+.settings-page .success-message {
+  color: #7dd3a8;
+  background: rgba(125, 211, 168, 0.05);
+  border-color: rgba(125, 211, 168, 0.12);
+}
+
+/* Error */
+
+.settings-page .error,
+.settings-page .error-message {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.05);
+  border-color: rgba(248, 113, 113, 0.12);
+}

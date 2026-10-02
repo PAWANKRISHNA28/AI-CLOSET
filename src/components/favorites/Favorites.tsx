@@ -1,3 +1,4 @@
+import "./Favorites.css";
 import { useState } from "react";
 
 function Favorites() {
